@@ -1,0 +1,18 @@
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "cRhgteHUd6rUkj2/aj3u7HycSQ5vbdAU61/1+A0oKuit+PK7OIW3RiSV8aoAJJXgoh5Nx582Pefs1aTkeXeA/kNGMJ2Ar/qpswH21uYiMV+TDQc0KKr6kF7gIC2ESHgiPxTRE0oSMY2AiAKde1LtpeofRzq37UcgYy3B23C4BIItKCTNDw5MQpnbVjVEGN8yIF7zp8LCD3LUOwEHszbgU3FYZrEW/odDQzjTutnOd0bKah/rxKb+tg8qC2nMuQdA4DCtuUO/emVbd7cbONhMZZ36MYs0Q8e5IyjIW2F6kjfH5hGamK8ABNnsQRAoMws8BUgJrhHTu2JnQYu/lSSZSsuhaA347j3BINX/EORpLu0c351e+Y2bq3aZBZY4pba288Xfz97BapOjHGUPmqJQw4Rj36uqpqe/qhq+rt0FJn4cSylBVGFD8HliPXCgr7RUcCx/74XBRzUpcXghV0CUcPi9IfUXbPy9vCOoc+cZkVoW/RoN4srLgfYIYzskVyNq2t+cUeLaX6EG8jyeLzIO5mNbE5klIxw4FOKPxGk9YtuXy4JBX2s4C2Gb/yb4CnXip3I1lDzIBG/zVLW6/HowVaTbSjRuf1Bq8fSyR4Peee7lF4jrUJ0JE101E9FqCQjo8KHoRaGw50qBqoJvKOuK45TwVpwIjlNaiy9aoxHsKz4="
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "jjbhuvanesh/vulnerable_java"
+      description: "Testing project"
+    notification_email: jjbhuvanesh4@gmail.com
+    build_command_prepend: "qmake"
+    build_command: "make"
+    branch_pattern: coverity_scan
